@@ -8,6 +8,7 @@ html, body {
 body {
 	background-size: cover;
 	background-repeat: no-repeat;
+	background-color: #F6F6F6;
 
 }
 
@@ -19,11 +20,6 @@ header {
 	background:linear-gradient(320deg,#169c81,#465e77);
 	font-weight: bold;
 
-}
-
-li .button {
-	vertical-align: middle;
-	margin:5px;
 }
 
 .navbar-default {
@@ -48,27 +44,20 @@ li .button {
     color:#169c81;
 
 }
-
-.navbar-default .navbar-nav .navbar-right > li > a:hover,
-.navbar-default .navbar-nav .navbar-right > li > a:focus {
-    color:#465e77;
-
-}
-
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
     color:#169c81;
+    background-color: white;
 
 }
-
-
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
     color:#169c81;
-}
 
+
+}
 
 .container-fluid {
 	height: 0 auto;
@@ -76,10 +65,11 @@ li .button {
 	color:white;
 }
 
-.jumbotron .container {
-	background-color: white;
-	color:#169c81;
+.col-sm-6 {
+	background-color:white;
+	padding: 2%;
 }
+
 
 img {
 	width:50px;
@@ -88,16 +78,16 @@ img {
 
 
 .formulaire {
-	padding:5rem;
-	margin-top: 30%;
+
 	text-align: center;
-	font-family:Century gothic;
-	background-color:white; 
+	font-family:HK Grotesk;
+	
+	color:black; 
 }
 
 .formulaire h1 {
 	text-align: center;
-	font-family:Century gothic;
+	font-family:HK Grotesk;
 }
 
 
@@ -107,12 +97,27 @@ img {
 
 
 .btn-primary {
-    background: linear-gradient(320deg,#169c81,#465e77);
+    background: linear-gradient(300deg,#169c81,#465e77);
     border-color: #ffffff;
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
     background: linear-gradient(320deg,#465e77,#169c81);
     border-color: #ffffff;
+}
+
+p {
+	vertical-align: middle;
+	text-align: center;
+	width: 80%;
+	margin:0 auto;
+	color: #A0A0A0;
+}
+
+hr {
+	padding: 2px;
+    background: linear-gradient(320deg,#465e77,#169c81);
+    border: 0;
+    width: 20%;
 }
  
