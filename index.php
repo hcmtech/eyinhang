@@ -32,7 +32,7 @@ if (empty($_SESSION['UserID'])) {
                 </div>
                   <div class="modal-body">
                   <h4>Bienvenue, <?php echo $_SESSION['username']." ".$_SESSION['userprenom']; ?></h4>
-                </div>?
+                </div>
               </div>
             </div>
           </div>
