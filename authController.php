@@ -71,7 +71,7 @@ if (isset($_POST['signup-btn'])) {
             // TO DO: send verification email to user
             //sendVerificationEmail($email);
 
-            $_SESSION['userID'] = $user_id;
+            $_SESSION['id'] = $user_id;
             $_SESSION['username'] = $username;
             $_SESSION['userprenom'] = $userprenom;
             $_SESSION['email'] = $email;
@@ -106,7 +106,7 @@ if (isset($_POST['login-btn'])) {
             if (password_verify($password, $user['password'])) { // Si les deux mots de passes correspondent
                 $stmt->close();
 
-                $_SESSION['userID'] = $user['userID'];
+                $_SESSION['id'] = $user['id'];
                 $_SESSION['email'] = $user['email'];
                 $_SESSION['verified'] = $user['verified'];
                 header('location: index.php');
