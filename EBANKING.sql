@@ -15,7 +15,7 @@ ville varchar(20) NOT NULL,
 codepostale varchar(5) NOT NULL,
 numerotel varchar(10) NOT NULL,
 email varchar(255) NOT NULL,
-Password varchar(255) NOT NULL,
+password varchar(255) NOT NULL,
 CONSTRAINT PK_user PRIMARY KEY (userID)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
