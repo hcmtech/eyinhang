@@ -9,7 +9,7 @@ $numerotel="";
 $email = "";
 $errors = [];
 
-$conn = new mysqli('localhost', 'root', '', 'ebanking'); //Remplacer bank par le nom de la base
+$conn = new mysqli('localhost', 'root', '', 'ebanking'); //La case code est vide, en mettre un si dans phpmyadmin vous en avez configuré un
 
 // Incription utilisateur
 //Règle de validation des données
