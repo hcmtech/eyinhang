@@ -25,7 +25,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
                     <li><a href="inscription.php">Ouvrir un compte courant</a></li>
-                    <li><a href="connexion.php">Déjà client ? </a></li>
+                    <li><a href="login.php">Déjà client ? </a></li>
       </ul>
       
       
