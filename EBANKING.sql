@@ -7,7 +7,7 @@ CONSTRAINT PK_admin PRIMARY KEY (adminID)
 
 
 CREATE TABLE user(
-userID int auto_increment,
+id int auto_increment,
 username varchar(25) NOT NULL,
 userprenom varchar(25) NOT NULL,
 adresse varchar(50) NOT NULL,
