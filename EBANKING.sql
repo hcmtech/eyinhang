@@ -7,7 +7,7 @@ CONSTRAINT PK_admin PRIMARY KEY (adminID)
 
 
 CREATE TABLE user(
-UserID int auto_increment,
+userID int auto_increment,
 username varchar(25) NOT NULL,
 userprenom varchar(25) NOT NULL,
 adresse varchar(50) NOT NULL,
@@ -15,21 +15,21 @@ ville varchar(20) NOT NULL,
 codepostale varchar(5) NOT NULL,
 numerotel varchar(10) NOT NULL,
 email varchar(255) NOT NULL,
-password varchar(255) NOT NULL,
-CONSTRAINT PK_user PRIMARY KEY (UserID)
+Password varchar(255) NOT NULL,
+CONSTRAINT PK_user PRIMARY KEY (userID)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE estBeneficiaire(
 estBeneficiaireID int auto_increment,
-UserID int not null,
+userID int not null,
 beneficiaireID int not null,
 dateAjoutBeneficiaire timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 CONSTRAINT PK_beneficiaire PRIMARY KEY (estBeneficiaireID),
 CONSTRAINT FK_beneficiaireID FOREIGN KEY (beneficiaireID) REFERENCES user
-(UserID),
-CONSTRAINT FK_user FOREIGN KEY (UserID) REFERENCES user
-(UserID)
+(userID),
+CONSTRAINT FK_user FOREIGN KEY (userID) REFERENCES user
+(userID)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE typeCompte (
@@ -45,25 +45,34 @@ compteDateOuverture timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 Rib varchar(64) NOT NULL,
 autorisationDecouvert boolean DEFAULT NULL,
 limiteDecouvert int(11) DEFAULT '500',
-UserID int NOT NULL,
+userID int NOT NULL,
 typeCompteID int not null,
 CONSTRAINT PK_compte PRIMARY KEY (compteID),
-CONSTRAINT FK_userID FOREIGN KEY (UserID) REFERENCES user
-(UserID),
+CONSTRAINT FK_userID FOREIGN KEY (userID) REFERENCES user
+(userID),
 CONSTRAINT FK_typeCompteID FOREIGN KEY (typeCompteID) REFERENCES typeCompte
 (typeCompteID)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE operation (
 operationID int auto_increment,
-montantDebit decimal(11,2),
-montantCredit decimal(11,2) CHECK(montantCredit >= 0),
+debiteurID int not null,
+crediteurID int not null,
+compteSolde decimal(11,2) NOT NULL DEFAULT '0.00',
+montant decimal(11,2),
 dateOperation timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 libelleOperation varchar (15),
+description varchar (15),
 compteID int not null,
 CONSTRAINT PK_operation PRIMARY KEY (operationID),
 CONSTRAINT FK_compte FOREIGN KEY (CompteID) REFERENCES compte
 (compteID)
+CONSTRAINT FK_debiteurID FOREIGN KEY (debiteurID) REFERENCES user
+(userID)
+CONSTRAINT FK_crediteurID FOREIGN KEY (crediteurID REFERENCES user
+
+
+
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE cb (
@@ -90,10 +99,10 @@ CREATE TABLE chequier (
 chequierID int auto_increment,
 envoiChequier boolean NOT NULL DEFAULT '0',
 dateEnvoiChequier datetime NOT NULL,
-UserID int not null,
+userID int not null,
 CONSTRAINT PK_chequier PRIMARY KEY (chequierID),
-CONSTRAINT FK_chequier FOREIGN KEY (UserID) REFERENCES user
-(UserID)
+CONSTRAINT FK_chequier FOREIGN KEY (userID) REFERENCES user
+(userID)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -120,17 +129,3 @@ CREATE TABLE estOperationCheque (
 	CONSTRAINT FK_chequeID FOREIGN KEY (chequeID) REFERENCES depotCheque
 	(chequeID)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
