@@ -9,14 +9,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <title>Document</title>
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-     <link rel="stylesheet" href="inscription.css">
+     <link rel="stylesheet" href="css/inscription.css">
   </head>
 
 <body>
   <header class ="navbar navbar-default">
     <div class="container">
       <div class="navbar-header">
-        <a class="navbar-brand" href="#">KL BANK</a>  
+        <a class="navbar-brand" href="accueil.php">KL BANK</a>  
       </div>
       <ul class="nav navbar-nav">
                     <li><a href="offre.html">Notre offre</a></li>

@@ -15,7 +15,7 @@ if (empty($_SESSION['UserID'])) {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <title>Document</title>
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-     <link rel="stylesheet" href="stylesheet.css">
+     <link rel="stylesheet" href="css/stylesheet.css">
   </head>
 
 <body>
@@ -58,7 +58,7 @@ if (empty($_SESSION['UserID'])) {
         $('#overlay').modal('show');
             setTimeout(function() {
           $('#overlay').modal('hide');
-      location.replace("home-user.php")
+      location.replace("home-user-account.php")
       }, 2000);
     </script>
 
