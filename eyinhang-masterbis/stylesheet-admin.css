@@ -1,0 +1,53 @@
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+body {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-image: url(img/ebanking.jpg);
+
+
+
+}
+
+button {
+	display: block;
+}
+
+header .col-sm-4 {
+	vertical-align: middle;
+	height:100px;
+}
+
+
+.formulaire {
+	padding:5rem;
+	margin-top: 20%;
+	text-align: center;
+	font-family:Century gothic;
+	background-color:white; 
+}
+
+.formulaire h1 {
+	text-align: center;
+	font-family:Century gothic;
+}
+
+
+
+.formulaire img {
+	}
+
+
+.btn-primary {
+    background: linear-gradient(320deg,#169c81,#465e77);
+    border-color: #ffffff;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: linear-gradient(320deg,#465e77,#169c81);
+    border-color: #ffffff;
+}
+ 
