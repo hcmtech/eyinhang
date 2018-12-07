@@ -74,6 +74,10 @@ if (isset($_POST['signup-btn'])) {
             $_SESSION['UserID'] = $user_id;
             $_SESSION['username'] = $username;
             $_SESSION['userprenom'] = $userprenom;
+            $_SESSION['adresse']= $adresse;
+            $_SESSION['ville']= $ville;
+            $_SESSION['codepostale']= $codepostale;
+            $_SESSION['numerotel']= $numerotel;
             $_SESSION['email'] = $email;
             $_SESSION['verified'] = false;
 
@@ -108,6 +112,12 @@ if (isset($_POST['login-btn'])) {
 
                 $_SESSION['UserID'] = $user['UserID'];
                 $_SESSION['email'] = $user['email'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['userprenom'] = $user['userprenom'];
+                $_SESSION['adresse'] = $user['adresse'];
+                $_SESSION['ville'] = $user['ville'];
+                $_SESSION['codepostale']= $user['codepostale'];
+                $_SESSION['numerotel']= $user['numerotel'];
                 $_SESSION['verified'] = $user['verified'];
                 header('location: index.php');
                 exit(0);
