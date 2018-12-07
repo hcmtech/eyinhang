@@ -105,8 +105,8 @@ if (isset($_POST['login-btn'])) {
         $stmt->bind_param('ss', $email, $password);
 
         if ($stmt->execute()) {
-            $result = $stmt->get_result();
-            $user = $result->fetch_assoc();
+            $result = $stmt->get_result(); // Récupère les résultats
+            $user = $result->fetch_assoc(); // Associe les résulatats de la requête variable $user
             if (password_verify($password, $user['password'])) { // Si les deux mots de passes correspondent
                 $stmt->close();
 
