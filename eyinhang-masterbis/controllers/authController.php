@@ -77,7 +77,7 @@ if (isset($_POST['signup-btn'])) {
             $_SESSION['email'] = $email;
             $_SESSION['verified'] = false;
 
-            header('location: home-user-account.php');
+            header('location: index.php');
         } else {
             $_SESSION['error_msg'] = "Database error: Impossible d'enregistrer l'utilisateur";
         }
