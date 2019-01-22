@@ -2,10 +2,10 @@ html, body {
     margin: 0;
     height: 100%;
     font-family: HK Grotesk;
-
 }
 
 body {
+	background-image: url(../img/accueil.jpg);
 	background-size: cover;
 	background-repeat: no-repeat;
 
@@ -16,10 +16,25 @@ header {
 }
 
 .navbar {
-	background:linear-gradient(320deg,#169c81,#465e77);
 	font-weight: bold;
 
+
 }
+
+.navbar-brand {
+	display: flex; /* contexte sur le parent */
+ 	flex-direction: column; /* direction d'affichage verticale */
+  	justify-content: center;
+  	color:#465e77;
+}
+
+.navbar-brand img {
+	width:60px;
+	margin: auto;
+}
+
+
+
 
 li .button {
 	vertical-align: middle;
@@ -33,15 +48,15 @@ li .button {
 }
 /* Title */
 .navbar-default .navbar-brand {
-    color: white;
+    color: #465e77;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-    color: white;
+    color: #465e77;
 }
 /* Link */
 .navbar-default .navbar-nav > li > a {
-    color: white;
+    color: #465e77;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {

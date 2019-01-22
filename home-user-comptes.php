@@ -1,4 +1,10 @@
-<?php include 'controllers/authController.php' ?>
+<?php include 'controllers/affichageDonnees.php' ?>
+<?php 
+    if(empty($_SESSION['UserID'])) {
+        header('location: login.php');
+    }else {
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -8,7 +14,7 @@
          <link rel="stylesheet" href="css/home-user-account.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <title>Document</title>
+    <title>Mon compte courant</title>
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
      <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
@@ -26,55 +32,58 @@
 <script type="text/javascript">
 $(document).ready(function () {
 
-    $(function () {
-    $('.navbar-toggle').click(function () {
-        $('.navbar-nav').toggleClass('slide-in');
-        $('.side-body').toggleClass('body-slide-in');
-        $('#search').removeClass('in').addClass('collapse').slideUp(200);
+$("#searchInput").keyup(function () {
+    //split the current value of searchInput
+    var data = this.value.split(" ");
+    //create a jquery object of the rows
+    var jo = $("#fbody").find("tr");
+    if (this.value == "") {
+        jo.show();
+        return;
+    }
+    //hide all the rows
+    jo.hide();
 
-        /// uncomment code for absolute positioning tweek see top comment in css
-        //$('.absolute-wrapper').toggleClass('slide-in');
-        
+    //Recusively filter the jquery object to get results.
+    jo.filter(function (i, v) {
+        var $t = $(this);
+        for (var d = 0; d < data.length; ++d) {
+            if ($t.is(":contains('" + data[d] + "')")) {
+                return true;
+            }
+        }
+        return false;
+    })
+    //show the rows that match.
+    .show();
+}).focus(function () {
+    this.value = "";
+    $(this).css({
+        "color": "black"
     });
-   
-   // Remove menu for searching
-   $('#search-trigger').click(function () {
-        $('.navbar-nav').removeClass('slide-in');
-        $('.side-body').removeClass('body-slide-in');
-
-        /// uncomment code for absolute positioning tweek see top comment in css
-        //$('.absolute-wrapper').removeClass('slide-in');
-
-    });
+    $(this).unbind('focus');
+}).css({
+    "color": "#C0C0C0"
 });
 
+
+    $('#dtBasicExample').DataTable();
+    $('.dataTables_length').addClass('bs-select');
+    
 });
+
 </script>
 
 <div class="row">
-    <!-- uncomment code for absolute positioning tweek see top comment in css -->
-    <!-- <div class="absolute-wrapper"> </div> -->
-    <!-- Menu -->
     <div class="side-menu">
-    
     <nav class="navbar navbar-default" role="navigation">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
+        <div class="navbar-header">
         <div class="brand-wrapper">
-            <!-- Hamburger -->
-            <button type="button" class="navbar-toggle">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-            <!-- Brand -->
             <div class="brand-name-wrapper">
                 <h3> Bonjour <?php echo $_SESSION['userprenom']." ".$_SESSION['username']; ?> ! </h3>
                 <img src="img/icon-person.png" alt="">  
                 <a href="home-user-profil.php">Mon profil</a>
-                <a href="#"><span class="glyphicon glyphicon-log-out"></span> Se déconnecter</a>
+                <a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Se déconnecter</a>
             </div>
 
 
@@ -101,8 +110,6 @@ $(document).ready(function () {
             </li>
             <li><a href="home-user-virement.php"><span class="glyphicon glyphicon-share"></span> Faire un nouveau virement</a></li>
             <li><a href="home-user-beneficiaire.php"><span class="glyphicon glyphicon-user"></span> Vos bénéficiaires</a></li>
-
-            <li><a href="home-user-CB.php"><span class="glyphicon glyphicon-credit-card"></span> Ma carte </a></li>
             <li><a href="home-user-chequier.php"><span class="glyphicon glyphicon-folder-close"></span> Demander mon chéquier </a></li>
 
         </ul>
@@ -111,23 +118,118 @@ $(document).ready(function () {
     
     </div>
 
+    <!-- Controler -->
+
+
     <!-- Main Content -->
-    <div class="container-fluid">
-        <div class="side-body">
-           <h1> Aperçu de votre compte </h1>
-           <pre> Resize the screen to view the left slide menu </pre>
-           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-           
-         
+
+        <div class="container-fluid">
+            <div class="side-body">
+                <div class="horizontal-header">
+                <div class="container-content">
+                    <h1>Détails des opérations du compte courant</h1>
+                </div>
+
+
+                <br>
+  
+            <div class="container-content">
+<div class="row">
+  <div class="col-md-6">
+    <!-- Card 1 : Display solde -->
+                <div class="card" >
+                    <div class="card-body">
+                         <h3 class="card-title">Solde du compte courant </h3>
+                           
+                                <?php
+                                 while ($row = mysqli_fetch_array($result1)) {
+                                    if($row['typeCompteID'] == 1) 
+                                    {
+                                    echo "<p>" . $row['compteSolde'] . ' €'. "</p>"; 
+                                }
+                                }
+                               
+                                ?>
+                            
+                        
+                    </div>
+                </div> 
+                <br>
+  </div>
+
+    <div class="col-md-6">
+    <!-- Card 2 : Display solde compte epargne-->
+                <div class="card" >
+                    <div class="card-body">
+                         <h3 class="card-title">Votre découvert </h3>
+                                <?php
+                                    while ($row = mysqli_fetch_array($result12)) {
+                                        if($row['autorisationDecouvert'] == 'Autorisé') 
+                                        {
+                                        echo '<h1><span class="badge badge-success" style="font-size: 1.5rem; background:green;">'. $row['autorisationDecouvert'] .'</span></h1>';
+                                        echo '<p style="font-size: 2rem; font-weight:bold; color:green">'. $row['limiteDecouvert'] .'€'.'</p>';
+                                        } else {
+                                         echo '<h1><span class="badge badge-success" style="font-size: 1.5rem; background:red;">'. $row['autorisationDecouvert'] .'</span></h1>';   
+                                        }
+                                    
+                                }
+
+                                mysqli_close($conn);
+                                ?> <br>
+                    </div>
+                </div>
+  </div> <br> <br>
+
+
+            <form class="form-inline">
+              <div class="form-group">
+                <span class="glyphicon glyphicon-search" style="color:#169c81;"></span>
+                <label for="exampleInputName" style="color:#169c81;">Recherche rapide</label> 
+                <input type="text" class="form-control" id="searchInput">
+              </div>
+            </form>
+
+            <table class="table table-striped table2">
+                <thead>
+                    <tr class="tableactivite">
+                        <th scope="col">
+                        Date de l'opération
+                        </th>
+                        <th scope="col">
+                        Libellé
+                        </th>
+                        <th scope="col">
+                        Montant
+                        </th>
+
+                    </tr>
+                </thead>
+            <tbody id="fbody">
+
+<?php while($row = mysqli_fetch_array($result8))
+{
+
+echo "<tr>";
+echo "<td>" . $row['dateOperation'] . "</td>";
+echo "<td>" . $row['libelleOperation'] . "</td>";
+if($row['compteID_debiteur']== $compteID2) {
+        echo "<td style='color:red; font-weight:bold;''>" . "- ".$row['montant'] . "</td>";
+    } 
+
+if($row['compteID_crediteur']== $compteID2) {
+        echo "<td style='color:#465e77;font-weight:bold;''>" . "+ ".$row['montant'] . "</td>";
+    }
+echo "</tr>";
+}
+
+echo "</table>";
+
+?>
+
+           </div>
         </div>
     </div>
 
 </body>
 </html>
-
+<?php } ?>

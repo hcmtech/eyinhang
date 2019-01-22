@@ -25,6 +25,18 @@ header {
 .navbar-default {
     background-color: white;
     border-color: white;
+}
+
+.navbar-brand {
+	display: flex; /* contexte sur le parent */
+ 	flex-direction: column; /* direction d'affichage verticale */
+  	justify-content: center;
+}
+
+.navbar-brand img {
+	width:60px;
+	margin: auto;
+}
 
 }
 /* Title */
@@ -78,16 +90,12 @@ img {
 
 
 .formulaire {
-
 	text-align: center;
-	font-family:HK Grotesk;
-	
 	color:black; 
 }
 
 .formulaire h1 {
 	text-align: center;
-	font-family:HK Grotesk;
 }
 
 
@@ -107,11 +115,11 @@ img {
 }
 
 p {
-	vertical-align: middle;
-	text-align: center;
-	width: 80%;
-	margin:0 auto;
+	width: 63%;
 	color: #A0A0A0;
+	font-size:1rem; 
+	text-align: justify;
+	margin: 0 auto;
 }
 
 hr {

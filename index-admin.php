@@ -1,4 +1,4 @@
-<?php include 'controllers/authController.php'?>
+<?php include 'controllers/authController-admin.php'?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -15,24 +15,6 @@
 
 <body>
 
-<?php  if ($_SESSION['verified']===false){ ?> 
-
-
-          <div class="modal fade" id="overlay">
-            <div class="modal-dialog">
-              <div class="modal-content" >
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">Inscription réussie</h4>
-                </div>
-                  <div class="modal-body">
-                  <h4>Bienvenue, <?php echo $_SESSION['username']." ".$_SESSION['userprenom']; ?></h4>
-                </div>
-              </div>
-            </div>
-          </div>
-
-<?php } else  { ?>
 
           <div class="modal fade" id="overlay">
             <div class="modal-dialog">
@@ -42,18 +24,17 @@
                   <h4 class="modal-title">Connexion réussie</h4>
                 </div>
                   <div class="modal-body">
-                  <h4>Bienvenue, <?php echo $_SESSION['username']." ".$_SESSION['userprenom']; ?></h4>
+                  <h4>Bienvenue, <?php echo $_SESSION['login']; ?></h4>
                 </div>
               </div>
             </div>
-          </div>
-<?php }?>       
+          </div>  
 
     <script type="text/javascript"> 
         $('#overlay').modal('show');
             setTimeout(function() {
           $('#overlay').modal('hide');
-      location.replace("home-user-account.php")
+      location.replace("home-admin-list-users.php")
       }, 2000);
     </script>
 

@@ -1,5 +1,6 @@
 <?php
 session_start();
+$user_id = "";
 $username = "";
 $userprenom="";
 $adresse="";
@@ -9,7 +10,7 @@ $numerotel="";
 $email = "";
 $errors = [];
 
-$conn = new mysqli('localhost', 'root', 'root', 'ebanking'); //La case code est vide, en mettre un si dans phpmyadmin vous en avez configuré un
+$conn = new mysqli('localhost', 'root', 'root', 'ebankingavecm'); //La case code est vide, en mettre un si dans phpmyadmin vous en avez configuré un
 
 // Incription utilisateur
 //Règle de validation des données
@@ -41,7 +42,7 @@ if (isset($_POST['signup-btn'])) {
     if (isset($_POST['password']) && $_POST['password'] !== $_POST['passwordConf']) {
         $errors['passwordConf'] = 'Les deux mots de passes ne correspondent pas';
     }
-
+    $user_id = $_POST['UserID'];
     $username = $_POST['username'];
     $userprenom=$_POST['userprenom'];
     $adresse=$_POST['adresse'];
@@ -74,10 +75,14 @@ if (isset($_POST['signup-btn'])) {
             $_SESSION['UserID'] = $user_id;
             $_SESSION['username'] = $username;
             $_SESSION['userprenom'] = $userprenom;
+            $_SESSION['adresse']= $adresse;
+            $_SESSION['ville']= $ville;
+            $_SESSION['codepostale']= $codepostale;
+            $_SESSION['numerotel']= $numerotel;
             $_SESSION['email'] = $email;
             $_SESSION['verified'] = false;
 
-            header('location: home-user-account.php');
+            header('location: index.php');
         } else {
             $_SESSION['error_msg'] = "Database error: Impossible d'enregistrer l'utilisateur";
         }
@@ -94,6 +99,7 @@ if (isset($_POST['login-btn'])) {
     }
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $id  = $_GET["UserID"] ;
 
     if (count($errors) === 0) {
         $query = "SELECT * FROM user WHERE email=? OR password=? LIMIT 1";
@@ -101,13 +107,19 @@ if (isset($_POST['login-btn'])) {
         $stmt->bind_param('ss', $email, $password);
 
         if ($stmt->execute()) {
-            $result = $stmt->get_result();
-            $user = $result->fetch_assoc();
+            $result = $stmt->get_result(); // Récupère les résultats
+            $user = $result->fetch_assoc(); // Associe les résulatats de la requête variable $user
             if (password_verify($password, $user['password'])) { // Si les deux mots de passes correspondent
                 $stmt->close();
 
                 $_SESSION['UserID'] = $user['UserID'];
                 $_SESSION['email'] = $user['email'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['userprenom'] = $user['userprenom'];
+                $_SESSION['adresse'] = $user['adresse'];
+                $_SESSION['ville'] = $user['ville'];
+                $_SESSION['codepostale']= $user['codepostale'];
+                $_SESSION['numerotel']= $user['numerotel'];
                 $_SESSION['verified'] = $user['verified'];
                 header('location: index.php');
                 exit(0);
@@ -121,3 +133,8 @@ if (isset($_POST['login-btn'])) {
     }
 }
 
+ ?>
+
+
+    
+    

@@ -16,7 +16,7 @@
   <header class ="navbar navbar-default">
     <div class="container">
       <div class="navbar-header">
-        <a class="navbar-brand" href="accueil.php">KL BANK</a>  
+        <a class="navbar-brand" href="#"><img src="img/logo2.png" alt="logo-bank" size="20px"></a>  
       </div>
       <ul class="nav navbar-nav">
                     <li><a href="offre.html">Notre offre</a></li>
@@ -44,7 +44,7 @@
       <h1>BIENVENUE</h1>
       <h2>Devenez client Ebanking ! </h2>
       <hr>
-      <p>Chez Ebanking, nos services 100% connectés vous permettent d'ouvrir votre compte en ligne et en quelques clics.</p>
+      <h5>Chez Ebanking, nos services 100% connectés vous permettent d'ouvrir votre compte en ligne et en quelques clics.</h5>
       <br>
 
       <form action="inscription.php" method="post">
@@ -111,7 +111,7 @@
     </div>
   </div>
 
-  <div class="container">
+  <div class="container"><br>
 <p>
 Les données recueillies dans le cadre de votre demande d'ouverture de compte ont un caractère obligatoire et sont indispensables pour gérer votre demande. Elles font l'objet d'un traitement automatique, par Boursorama et ses sous-traitants, uniquement à des fins de finalisation de votre demande. Vos données pourront être conservées pendant une durée maximale d'un an à des fins probatoires. A l'issue de cette période, elles seront anonymisées et conservées à des fins statistiques et d'étude.
 

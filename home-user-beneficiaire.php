@@ -1,13 +1,17 @@
-<?php include 'controllers/authController.php' ?>
+<?php include 'controllers/affichageDonnees.php' ?>
+<?php 
+    if(empty($_SESSION['UserID'])) {
+        header('location: login.php');
+    } else {
+?>
 <!DOCTYPE html>
 <html lang="fr">
   <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <title>Document</title>
+    <title>Mes bénéficiaires</title>
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
      <link rel="stylesheet" href="css/home-user-account.css">
      <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
@@ -26,69 +30,66 @@
 <script type="text/javascript">
 $(document).ready(function () {
 
-    $(function () {
-    $('.navbar-toggle').click(function () {
-        $('.navbar-nav').toggleClass('slide-in');
-        $('.side-body').toggleClass('body-slide-in');
-        $('#search').removeClass('in').addClass('collapse').slideUp(200);
+$("#searchInput").keyup(function () {
+    //split the current value of searchInput
+    var data = this.value.split(" ");
+    //create a jquery object of the rows
+    var jo = $("#fbody").find("tr");
+    if (this.value == "") {
+        jo.show();
+        return;
+    }
+    //hide all the rows
+    jo.hide();
 
-        /// uncomment code for absolute positioning tweek see top comment in css
-        //$('.absolute-wrapper').toggleClass('slide-in');
-        
+    //Recusively filter the jquery object to get results.
+    jo.filter(function (i, v) {
+        var $t = $(this);
+        for (var d = 0; d < data.length; ++d) {
+            if ($t.is(":contains('" + data[d] + "')")) {
+                return true;
+            }
+        }
+        return false;
+    })
+    //show the rows that match.
+    .show();
+}).focus(function () {
+    this.value = "";
+    $(this).css({
+        "color": "black"
     });
-   
-   // Remove menu for searching
-   $('#search-trigger').click(function () {
-        $('.navbar-nav').removeClass('slide-in');
-        $('.side-body').removeClass('body-slide-in');
-
-        /// uncomment code for absolute positioning tweek see top comment in css
-        //$('.absolute-wrapper').removeClass('slide-in');
-
-    });
+    $(this).unbind('focus');
+}).css({
+    "color": "#C0C0C0"
 });
 
+
+    $('#dtBasicExample').DataTable();
+    $('.dataTables_length').addClass('bs-select');
 });
+
 </script>
 
 <div class="row">
-    <!-- uncomment code for absolute positioning tweek see top comment in css -->
-    <!-- <div class="absolute-wrapper"> </div> -->
-    <!-- Menu -->
     <div class="side-menu">
-    
     <nav class="navbar navbar-default" role="navigation">
-    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
         <div class="brand-wrapper">
-            <!-- Hamburger -->
-            <button type="button" class="navbar-toggle">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-            <!-- Brand -->
             <div class="brand-name-wrapper">
                 <h3> Bonjour <?php echo $_SESSION['userprenom']." ".$_SESSION['username']; ?> ! </h3>
-                <img src="img/icon-person.png" alt="">  
+                <img src="img/icon-person.png" alt="">
                 <a href="home-user-profil.php">Mon profil</a>
-                <a href="#"><span class="glyphicon glyphicon-log-out"></span> Se déconnecter</a>
+                <a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Se déconnecter</a>
             </div>
-
 
     <!-- Main Menu -->
     <div class="side-menu-container">
         <ul class="nav navbar-nav">
-
             <li><a href="home-user-account.php"><span class="glyphicon glyphicon-home"></span> Dashboard</a></li>
                         <!-- Dropdown-->
-            <li class="panel panel-default" id="dropdown">
-                <a data-toggle="collapse" href="#dropdown-lvl1">
-                    <span class="glyphicon glyphicon-piggy-bank"></span> Gérer mes comptes <span class="caret"></span>
-                </a>
-
+            <li class="panel panel-default" id="dropdown"><a data-toggle="collapse" href="#dropdown-lvl1">
+            <span class="glyphicon glyphicon-piggy-bank"></span> Gérer mes comptes <span class="caret"></span></a>
                 <!-- Dropdown level 1 -->
                 <div id="dropdown-lvl1" class="panel-collapse collapse">
                     <div class="panel-body">
@@ -101,33 +102,160 @@ $(document).ready(function () {
             </li>
             <li><a href="home-user-virement.php"><span class="glyphicon glyphicon-share"></span> Faire un nouveau virement</a></li>
             <li class="active"><a href="home-user-beneficiaire.php"><span class="glyphicon glyphicon-user"></span> Vos bénéficiaires</a></li>
-
-            <li><a href="home-user-CB.php"><span class="glyphicon glyphicon-credit-card"></span> Ma carte </a></li>
             <li><a href="home-user-chequier.php"><span class="glyphicon glyphicon-folder-close"></span> Demander mon chéquier </a></li>
 
         </ul>
     </div><!-- /.navbar-collapse -->
-</nav>
-    
-    </div>
+    </nav>
+</div>
+</div>
+
 
     <!-- Main Content -->
     <div class="container-fluid">
         <div class="side-body">
-           <h1> Aperçu de votre compte </h1>
-           <pre> Resize the screen to view the left slide menu </pre>
-           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-           
-         
+             <div class="horizontal-header">
+                  <button type="button" class="btn btn-primary1 pull-right" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Ajouter des bénéficiaires
+                  </button>
+                <div class="container-content">
+                    <h1>Vos bénéficiaires </h1>
+                </div>
+            </div>
+            </div>
+
+            <div class="container-fluid">
+            <div class="side-body">
+            <div class="container-content">
+            <br>
+  
+            <!-- Liste des bénéficiaires validés -->
+              <?php 
+                $total=mysqli_num_rows($result4); // va retourner le nombre de ligne
+                if (($total) == NULL){ 
+                    echo "<p style='font-size: 2.5rem; font-weight:bold; color:#169c81'>Vous n'avez encore aucun bénéficiaires d'ajoutés.</p>";
+                } else { // si il y a des opérations alors on affiche =
+            echo <<<MYTAG
+            <h1>Liste de vos bénéficiaires actifs</h1>
+            
+            <form class="form-inline">
+              <div class="form-group">
+                <span class="glyphicon glyphicon-search" style="color:#169c81;"></span>
+                <label for="exampleInputName2" style="color:#169c81;">Recherche rapide</label> 
+                <input type="text" class="form-control" id="searchInput">
+              </div>
+            </form>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr class="tableactivite">
+                        <th scope="col">
+                        Identité du bénéficiaire
+                        </th>
+                        <th scope="col">
+                        IBAN
+                        </th> 
+                        <th scope="col">
+                        Date de l'ajout
+                        </th>       
+                    </tr>
+                </thead>
+            <tbody id="fbody">
+MYTAG;
+
+
+            while($row = mysqli_fetch_array($result4))
+            {
+            echo "<tr>";
+            echo '<td>'. $row['username'] . ' '.$row['userprenom'] . '</td>'; 
+            echo "<td>" . $row['Rib'] . "</td>";
+            echo "<td>" . $row['dateAjoutBeneficiaire'] .'</td>';
+            echo "</tr>";
+            }
+
+            echo "</table>";
+            mysqli_close($conn);
+                };
+             ?>
+
+<br>
+<!-- Liste des bénéficiaires en attente de validation -->
+  <?php 
+    $total=mysqli_num_rows($result5); // va retourner le nombre de ligne
+    if (($total) == NULL){ 
+    } else { // si il y a des opérations alors on affiche =
+echo <<<MYTAG
+            <h1>Liste de vos bénéficiaires en attente de validation</h1>
+            <table class="table table-striped">
+                <thead>
+                    <tr class="tableactivite">
+                        <th scope="col">
+                        Identité du bénéficiaire
+                        </th>
+                        <th scope="col">
+                        IBAN
+                        </th> 
+                        <th scope="col">
+                        Date de l'ajout
+                        </th>       
+                    </tr>
+                </thead>
+            <tbody>
+MYTAG;
+
+
+    while($row = mysqli_fetch_array($result5))
+    {
+    echo "<tr>";
+    echo '<td>'. $row['username'] . ' '.$row['userprenom'] . '</td>'; 
+    echo "<td>" . $row['Rib'] . "</td>";
+    echo "<td>" . $row['dateAjoutBeneficiaire'] .'</td>';
+    echo "</tr>";
+    }
+
+    echo "</table>";
+    mysqli_close($conn);
+        };
+     ?>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Ajouter des bénéficiaires</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+          <form action="home-user-beneficiaire.php" method="post">
+              <div class="form-group">
+                  <label for="IBAN"> IBAN du bénéficiaire :</label>
+                  <input type="text" name="insertIBAN" class="form-control mb-2 mr-sm-2 mb-sm-0" class="form-control">
+            </div>
+
+      </div>  
+
+      <div class="modal-footer">
+        <div class="col-auto">
+            <button type="submit" name="insertIBAN-btn" class="btn btn-primary mb-2">Ajouter</button>
+           </form>
+        </div>
+    </div>
+
+    </div>        
+  </div>
+</div>
+     </div>
+
+
         </div>
     </div>
 
 </body>
 </html>
-
+<?php } ?>

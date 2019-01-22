@@ -1,4 +1,9 @@
-<?php include 'controllers/authController.php' ?>
+<?php include 'controllers/ModifierInfosPersonnelles.php' ?>
+<?php 
+    if(empty($_SESSION['UserID'])) {
+        header('location: login.php');
+    }else {
+?>
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -27,24 +32,19 @@
 $(document).ready(function () {
 
     $(function () {
-    $('.navbar-toggle').click(function () {
-        $('.navbar-nav').toggleClass('slide-in');
-        $('.side-body').toggleClass('body-slide-in');
-        $('#search').removeClass('in').addClass('collapse').slideUp(200);
 
-        /// uncomment code for absolute positioning tweek see top comment in css
-        //$('.absolute-wrapper').toggleClass('slide-in');
+    $('.btn-primary1').click(function() {
+        $('.form-control').removeAttr("readonly");
+        $('#save').removeAttr("disabled");
+        $('#cancel').removeAttr("disabled");
         
     });
-   
-   // Remove menu for searching
-   $('#search-trigger').click(function () {
-        $('.navbar-nav').removeClass('slide-in');
-        $('.side-body').removeClass('body-slide-in');
 
-        /// uncomment code for absolute positioning tweek see top comment in css
-        //$('.absolute-wrapper').removeClass('slide-in');
-
+    $('#cancel').click(function() {
+        $('.form-control').attr('readonly', true);
+        $('#save').attr('disabled', true);
+        $('#cancel').attr('disabled', true);
+        
     });
 });
 
@@ -52,29 +52,15 @@ $(document).ready(function () {
 </script>
 
 <div class="row">
-    <!-- uncomment code for absolute positioning tweek see top comment in css -->
-    <!-- <div class="absolute-wrapper"> </div> -->
-    <!-- Menu -->
-    <div class="side-menu">
-    
+    <div class="side-menu">    
     <nav class="navbar navbar-default" role="navigation">
-    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
         <div class="brand-wrapper">
-            <!-- Hamburger -->
-            <button type="button" class="navbar-toggle">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-            <!-- Brand -->
             <div class="brand-name-wrapper">
                 <h3> Bonjour <?php echo $_SESSION['userprenom']." ".$_SESSION['username']; ?> ! </h3>
                 <img src="img/icon-person.png" alt="">  
-                <a href="home-user-profil">Mon profil</a>
-                <a href="#"><span class="glyphicon glyphicon-log-out"></span> Se déconnecter</a>
+                <a href="home-user-profil.php">Mon profil</a>
+                <a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Se déconnecter</a>
             </div>
 
 
@@ -101,8 +87,6 @@ $(document).ready(function () {
             </li>
             <li><a href="home-user-virement.php"><span class="glyphicon glyphicon-share"></span> Faire un nouveau virement</a></li>
             <li><a href="home-user-beneficiaire.php"><span class="glyphicon glyphicon-user"></span> Vos bénéficiaires</a></li>
-
-            <li><a href="home-user-CB.php"><span class="glyphicon glyphicon-credit-card"></span> Ma carte </a></li>
             <li><a href="home-user-chequier.php"><span class="glyphicon glyphicon-folder-close"></span> Demander mon chéquier </a></li>
 
         </ul>
@@ -114,20 +98,66 @@ $(document).ready(function () {
     <!-- Main Content -->
     <div class="container-fluid">
         <div class="side-body">
-           <h1> Aperçu de votre compte </h1>
-           <pre> Resize the screen to view the left slide menu </pre>
-           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-           
-         
+             <div class="horizontal-header">
+                  <button type="button" class="btn btn-primary1 pull-right" data-toggle="modal" data-target="#exampleModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Modifier
+            </button>
+                <div class="container-content">
+                    <h1>Mes infos personnelles</h1>
+                </div>
+       <br>
+      <form action="home-user-profil.php" method="post">
+
+
+          <div class="form-group col-md-6">
+            <label for="nom"> Nom:</label>
+            <input type="text" name="username" readonly="readonly" class="form-control mb-2 mr-sm-2" class="form-control" value ="<?php echo $_SESSION['username']; ?>">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="prenom"> Prénom:</label>
+            <input type="text" name="userprenom" readonly="readonly" class="form-control mb-2 mr-sm-2" class="form-control" value ="<?php echo $_SESSION['userprenom']; ?>">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="adresse"> Adresse:</label>
+            <input type="text" name="adresse" readonly="readonly" class="form-control mb-2 mr-sm-2" class="form-control" value ="<?php echo $_SESSION['adresse']; ?>">
+          </div>
+        <div class="form-group col-md-3">
+            <label for="codePostale"> Code Postale:</label>
+            <input type="integer" = name="codepostale" readonly="readonly" class="form-control mb-2 mr-sm-2" class="form-control" value ="<?php echo $_SESSION['codepostale']; ?>">
+          </div>
+                    <div class="form-group col-md-3">
+            <label for="ville"> Ville:</label>
+            <input type="text" name="ville" readonly="readonly" class="form-control mb-2 mr-sm-2" class="form-control" value ="<?php echo $_SESSION['ville']; ?>">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="numeroTel"> Numéro de téléphone:</label>
+            <input type="integer" name="numerotel" readonly="readonly" class="form-control mb-2 mr-sm-2" class="form-control" value ="<?php echo $_SESSION['numerotel']; ?>">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="email"> Adresse mail:</label>
+            <input type="email" name="email" readonly="readonly" class="form-control mb-2 mr-sm-2" class="form-control" value ="<?php echo $_SESSION['email']; ?>">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="pwd">Mot de passe:</label>
+            <input type="password" name="password" readonly="readonly" class="form-control">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="pwd">Confirmer le mot de passe:</label>
+            <input type="password" name="passwordConf" readonly="readonly" class="form-control">
+          </div>
+
+          <button type="submit" id="save" name="modify-btn" class="btn btn-primary col-md-4 pull-right" disabled>Sauvegarder</button>
+
+          <button type="submit" id="cancel" class="btn btn-primary pull-right" disabled>Annuler</button>
+
+
+        </form>
         </div>
+
+           
+        </div>
+      </div>
     </div>
 
 </body>
 </html>
-
+<?php } ?>

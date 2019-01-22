@@ -1,6 +1,3 @@
-
-
-
 body {
     font-family: HK Grotesk;
     background: white;
@@ -37,6 +34,12 @@ body {
     border-right: 1px solid #e7e7e7;
 }*/
 
+.brand-wrapper {
+  background-color: #F4F4F4;
+  padding: 10px;
+  margin:14px;
+}
+
 .brand-name-wrapper a {
   display: block;
   color:#465e77;
@@ -52,7 +55,7 @@ body {
 .brand-name-wrapper a {
   padding:5px;
   background: linear-gradient(320deg,#169c81,#465e77);
-  margin:10px 60px 10px 60px ;
+  margin:10px 60px 12px 60px ;
   color:white;
   text-decoration: none;
   border-radius: 3px;
@@ -62,7 +65,7 @@ body {
   position: fixed;
   width: 300px;
   height: 100%;
-  background-color: white;
+  background-color: linear-gradient(320deg,#169c81,#465e77);
   border-right: 1px solid #169c81;
 }
 .side-menu .navbar {
@@ -75,9 +78,10 @@ body {
 
 .side-menu .navbar-nav .active a {
   background-color: white;
-  margin-right: -1px;
+  margin-right: -25px;
   border-right: 5px solid #169c81;
   color:#169c81;
+  font-weight: bold;
 }
 
 .side-menu .navbar-nav .active a:hover {
@@ -87,18 +91,21 @@ body {
   transition-duration: 0.5s;
 }
 
+#dropdown-lvl1 .panel-body ul {
+ margin-top: 0;
+}
 
-.side-menu .navbar-nav li:first-child {
-  border-top: 1px solid #169c81;
+.side-menu-container ul {
+ margin-top: 20px;
 }
 
 .side-menu .navbar-nav li {
   display: block;
   width: 100%;
-  border-bottom: 1px solid #169c81;
+
 }
 .side-menu .navbar-nav li a {
-  padding: 17px;
+  padding: 15px;
   color:#169c81;
 }
 
@@ -110,7 +117,8 @@ body {
 }
 
 .side-menu .navbar-nav li a .glyphicon {
-  padding-right: 10px;
+  padding-left: 10px;
+  padding-right: 12px;
   color:#169c81;
 }
 
@@ -129,40 +137,12 @@ body {
 .side-menu #dropdown .indicator {
   float: right;
 }
-.side-menu #dropdown > a {
-  border-bottom: 1px solid #169c81;
-}
-.side-menu #dropdown .panel-body {
-  padding: 0;
-  background-color: #85D5C5;
 
+.side-menu #dropdown .panel-body .active a {
+  margin-right: -40px;
 }
-.side-menu #dropdown .panel-body .navbar-nav {
-  width: 100%;
-    color:white;
-}
-.side-menu #dropdown .panel-body .navbar-nav li {
-  padding-left: 15px;
-  border-bottom: 1px solid #169c81;
-  color: white;
-}
-.side-menu #dropdown .panel-body .navbar-nav li:last-child {
-  border-bottom: none;
-}
-.side-menu #dropdown .panel-body .panel > a {
-  margin-left: -20px;
-  padding-left: 35px;
-  color: white;
-}
-.side-menu #dropdown .panel-body .panel-body {
-  margin-left: -15px;
-}
-.side-menu #dropdown .panel-body .panel-body li {
-  padding-left: 30px;
-}
-.side-menu #dropdown .panel-body .panel-body li:last-child {
-  border-bottom: 1px solid #e7e7e7;
-}
+
+
 .side-menu #search-trigger {
   background-color: white;
   border: 0;
@@ -182,7 +162,7 @@ body {
 }
 
 .brand-name-wrapper img {
-	width: 50px;
+  width: 50px;
   margin-top: 5%;
   margin-bottom: 5%;
 }
@@ -224,8 +204,89 @@ body {
 }
 /* Main body section */
 .side-body {
-  margin-left: 310px;
+  margin-left: 285px;
 }
+
+.side-body .container-content {
+  margin-left: 20px;
+}
+
+
+.side-body .horizontal-header {
+  width:100%;
+  margin:0;
+  height:55px;
+  background-image:linear-gradient(320deg,#465e77,#169c81);
+
+}
+
+.side-body .horizontal-header h1{
+  margin: 0;
+  line-height: 55px;
+  color: white;
+  font-size: 2.5rem;
+}
+
+
+.horizontal-header .btn {
+    margin: 10px 20px 0 0;
+  border-radius: 5px;
+  background-color: transparent;
+  padding: 8px 15px;
+  border: 1px  solid white;
+  color:white;
+
+}
+
+.btn-primary1 {
+    transition: 0.5s;
+}
+
+.btn-primary1:hover, .btn-primary1:focus, .btn-primary1:active, .btn-primary1.active, .open > .dropdown-toggle.btn-primary1 {
+    background: white;
+    color:#465e77;
+}
+
+.card {
+  margin-top:6%;
+background:#F4F4F4;
+padding:3%;
+text-align: center;
+box-shadow: 5px 5px 4px #D8D8D8;
+}
+
+.card-body p{
+  font-size:5rem;
+
+}
+
+.card-body h3{
+  color:#465e77;
+
+}
+
+.card .card-body a {
+  background-color: #169c81;
+  border-radius: 5px;
+  padding:10px;
+  color:white;
+  text-decoration: none;
+}
+
+.card .card-body a:hover {
+  font-weight: bold;
+}
+
+.card .card-body .btn-primary {
+    background: #169c81;
+}
+
+.card .card-body .btn-primary:hover{
+  font-weight: bold;
+}
+
+
+
 /* small screen */
 @media (max-width: 768px) {
 
@@ -436,4 +497,28 @@ body {
   }
 }
 
+.btn-primary {
+    background: linear-gradient(320deg,#169c81,#465e77);
+    border-color: #ffffff;
+}
 
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: linear-gradient(320deg,#465e77,#169c81);
+    border-color: #ffffff;
+}
+
+.modal-dialog  { 
+  width: 40%; 
+   z-index: 1110;
+
+
+}
+
+.modal-backdrop { 
+background-color: linear-gradient(320deg,#169c81,#465e77);
+}
+
+
+.table2 {
+  width: 55%;
+}

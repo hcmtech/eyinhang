@@ -47,13 +47,8 @@
             <label>Mot de passe :</label>
             <input type="password" name="password" class="form-control form-control-lg">
           </div>
-
-          <div class="form-group form-check">
-			<label class="form-check-label">
-			<input class="form-check-input" type="checkbox"> Se rappeler de moi</label>
-		  </div>
           
-            <button type="submit" name="login-btn" class="btn btn-primary btn-block">Login</button>
+            <button type="submit" name="login-btn" class="btn btn-primary btn-block">Se connecter</button>
          
         </form>
         </div>
